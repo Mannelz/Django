@@ -14,7 +14,7 @@ def login_user(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            messages.error(request, 'Login efetuado com sucesso!')
+            messages.success(request, 'Login efetuado com sucesso!')
             return redirect('home')
         else:
             messages.error(request, 'Erro ao efetuar o login! Tente novamente.')
@@ -23,4 +23,6 @@ def login_user(request):
         return render(request, 'login.html', {})
 
 def logout_user(request):
-    pass
+    logout(request)
+    messages.success(request, 'Logout efetuado com sucesso!')
+    return redirect('login')
