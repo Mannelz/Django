@@ -7,20 +7,20 @@ def home(request):
     return render(request, 'home.html', {})
 
 def login_user(request):
-    if request.method == 'post':
-        username = request.post['username']
-        password = request.post['password']
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
 
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            messages.success(request, 'Login efetuado com sucesso!')
+            messages.error(request, 'Login efetuado com sucesso!')
             return redirect('home')
         else:
-            messages.success(request, 'Erro ao efetuar o login! Tente novamente.')
+            messages.error(request, 'Erro ao efetuar o login! Tente novamente.')
             return redirect('login')
     else:
-        return render('login')
+        return render(request, 'login.html', {})
 
 def logout_user(request):
     pass
