@@ -62,11 +62,11 @@ def customer_record(request, pk):
         return redirect('login')
 
 def add_record(request):
-    form = AddRecordForm(request.POST or None)
     if request.user.is_authenticated:
+        form = AddRecordForm(request.POST or None)
         if request.method == 'POST':
             if form.is_valid():
-                add_record = form.save()
+                form.save()
                 messages.success(request, 'Cliente adicionado com sucesso!')
                 return redirect('home')
         else:
@@ -83,4 +83,18 @@ def delete_record(request, pk):
         return redirect('home')
     else:
         messages.error(request, 'Você precisa estar logado para deletar um cliente!')
+        return redirect('login')
+    
+def update_record(request, pk):
+    if request.user.is_authenticated:
+        current_record = Record.objects.get(id=pk)
+        form = AddRecordForm(request.POST or None, instance=current_record)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Cliente editado com sucesso!')
+            return redirect('home')
+        else:
+            return render(request, 'update_record.html', {'form':form})
+    else:
+        messages.error(request, 'Você precisa estar logado para editar um cliente!')
         return redirect('login')

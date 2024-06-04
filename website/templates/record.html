@@ -19,8 +19,9 @@
   </div>
 </div>
 
-<div style="display: flex; justify-content: center; align-items: center">
-  <a class="btn btn-primary" style="margin: 12px 12px" href="{% url 'home' %}">Voltar</a>
-  <a class="btn btn-danger" style="margin: 12px 12px" href="{% url 'delete_record' customer_record.id %}">Deletar</a>
+<div style="display: flex; justify-content: center; align-items: center; gap: 12px; margin: 12px 0px;">
+  <a class="btn btn-primary" href="{% url 'home' %}">Voltar</a>
+  <a class="btn btn-danger" href="{% url 'delete_record' customer_record.id %}">Deletar</a>
+  <a class="btn btn-warning" href="{% url 'update_record' customer_record.id %}">Editar</a>
 </div>
 {% endblock %}
